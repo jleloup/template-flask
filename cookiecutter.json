@@ -1,0 +1,6 @@
+{
+  "application_name": "myApplication",
+  "_copy_without_render": [
+    "mise.toml"
+  ]
+}

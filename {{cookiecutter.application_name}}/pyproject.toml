@@ -1,0 +1,40 @@
+[project]
+name = "{{cookiecutter.application_name}}"
+version = "0.0.1"
+requires-python = "==3.12.*"
+
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "APIFlask==2.3.2",
+    "Flask==3.1.0",
+    "Flask-Migrate==4.0.7",
+    "Flask-SQLAlchemy==3.1.1",
+    "opentelemetry-distro==0.50b0",
+    "psycopg2-binary==2.9.10",
+    "SQLAlchemy==2.0.36"
+]
+
+optional-dependencies.debug = [
+    "ipython~=8.4",
+]
+
+[dependency-groups]
+dev = []
+
+docs = [ "mkdocs-material~=9.6.7" ]
+
+[tool.uv]
+package = false
+default-groups = [ "dev", "docs"]
+
+[[tool.uv.index]]
+name = "public"
+url = "https://pypi.org/simple"
+explicit = true
+
+[tool.ipdb]
+context = 10

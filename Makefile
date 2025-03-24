@@ -1,13 +1,7 @@
-# Install all requirements
+# Install all requirements for templating
 .PHONY: requirements
 requirements:
-	pipx install pre-commit --force
+	pipx install pre-commit
 	pipx install cookiecutter
 	pre-commit install
 	pre-commit install --hook-type commit-msg
-
-output="/tmp/template"
-
-.PHONY: generate
-generate:
-	cookiecutter --output-dir "$(output)" .

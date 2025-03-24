@@ -34,10 +34,10 @@ RUN opentelemetry-bootstrap -a install
 FROM python:3.12-slim AS run
 
 # Install app
-ENV PYTHONPATH="/opt/{{cookiecutter.project_slug}}:$PYTHONPATH"
+ENV PYTHONPATH="/opt/{{cookiecutter.application_name}}:$PYTHONPATH"
 ENV PATH=/build/.venv/bin:$PATH
 
-COPY --exclude="pyproject.toml" --exclude="uv.lock" --chown=app {{cookiecutter.project_slug}}/src/{{cookiecutter.project_slug}} /app/
+COPY --exclude="pyproject.toml" --exclude="uv.lock" --chown=app {{cookiecutter.application_name}}/src/{{cookiecutter.application_name}} /app/
 COPY --from=build --chown=app /build/.venv /build/.venv
 
 USER 1337
