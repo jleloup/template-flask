@@ -1,0 +1,31 @@
+[tools]
+python = "3.12"
+"pipx:uv" = { version = "0.6", uvx_args = "--python-preference=system" }
+"pipx:pre-commit" = { version = "4.2", uvx_args = "--python-preference=system" }
+
+[settings]
+status.missing_tools = "always"
+status.show_env = false
+status.show_tools = false
+
+[[env]]
+_.file = { path = "{{ config_root }}/.env", redact = false }
+
+[[env]]
+
+DOCKER_UID = "{% if os() == 'macos' %}1000{% else %}{{ exec(command='id -u', cache_key='uid') }}{% endif %}"
+DOCKER_GID = "{% if os() == 'macos' %}1000{% else %}{{ exec(command='id -g', cache_key='gid') }}{% endif %}"
+PROJECT_BASEDIR = "{{ config_root }}"
+UV_PYTHON_PREFERENCE = "system"
+UV_PYTHON_DOWNLOADS = "never"
+UV_NO_ENV_FILE = true
+
+[[env]]
+_.file = { path = "{{ config_root }}/.env.local", redact = false }
+
+
+[tasks.provision]
+"run = [
+    "pre-commit install -f",
+    "uv sync --project {{ env.PROJECT_BASEDIR }}/src/{{ env.PROJECT_BASEDIR }}",
+]

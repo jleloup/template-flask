@@ -1,0 +1,43 @@
+---
+default_stages: [pre-commit]
+fail_fast: true
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+      - id: check-byte-order-marker
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: debug-statements
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.13.0
+    hooks:
+      - id: commitizen
+        # Don't forget to run pre-commit install --hook-type commit-msg for this hook to run
+        stages: [commit-msg]
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+    rev: 0.2.3
+    hooks:
+      - id: yamlfmt
+        name: "YAML: format"
+        args: [--mapping, "2", --sequence, "4", --offset, "2", --preserve-quotes]
+        exclude: (helm/.*)
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        name: "YAML: lint"
+        args: [--strict, -c=.yamllint.yaml]
+        exclude: (helm/.*)
+
+  - repo: https://github.com/norwoodj/helm-docs
+    rev: "v1.13.1"
+    hooks:
+      - id: helm-docs

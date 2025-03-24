@@ -1,0 +1,48 @@
+[project]
+name = "{{cookiecutter.project_slug}}"
+version = "0.0.1"
+requires-python = "==3.12.*"
+
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    APIFlask==2.3.2
+    Flask==3.1.0
+    Flask-Migrate==4.0.7
+    Flask-SQLAlchemy==3.1.1
+    opentelemetry-distro==0.50b0
+    psycopg2-binary==2.9.10
+    SQLAlchemy==2.0.36
+]
+
+optional-dependencies.debug = [
+    "ipython~=8.4",
+]
+
+[dependency-groups]
+dev = []
+
+docs = [ "mkdocs-material~=9.6.7" ]
+
+[tool.black]
+line-length = 88
+target-version = [ "py310" ]
+include = '\.pyi?$'
+# force-exclude will also exclude files passed explicitly as argument
+# this handles the usecase of pre-commit
+force-exclude = '/(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|\.svn|_build|buck-out|build|dist|venv|snapshots|\.django_app_template)/'
+
+[tool.uv]
+package = false
+default-groups = [ "dev", "docs"]
+
+[[tool.uv.index]]
+name = "public"
+url = "https://pypi.org/simple"
+explicit = true
+
+[tool.ipdb]
+context = 10
