@@ -27,4 +27,5 @@ _.file = { path = "{{ config_root }}/.env.local", redact = false }
 run = [
     "pre-commit install -f",
     "uv sync --project {{ env.PROJECT_BASEDIR }}/src/{{ env.PROJECT_BASEDIR }}",
+    "uv run opentelemetry-bootstrap -a requirements | uv pip install --requirement -",
 ]
