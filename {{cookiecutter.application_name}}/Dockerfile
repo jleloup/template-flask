@@ -35,14 +35,14 @@ RUN uv run opentelemetry-bootstrap -a requirements | uv pip install --requiremen
 # Create the runtime image
 FROM python:3.12-slim AS run
 
+USER 1337
+
 # Install app & uv to launch opentelemetry as entrypoint
 ENV PYTHONPATH="/opt/{{cookiecutter.application_name}}:$PYTHONPATH"
 ENV PATH=/build/.venv/bin:$PATH
 
-COPY --from=ghcr.io/astral-sh/uv:0.6 /uv /uvx /usr/local/bin/
+COPY --chown=app --from=ghcr.io/astral-sh/uv:0.6 /uv /uvx /usr/local/bin/
 COPY --chown=app src/{{cookiecutter.application_name}} /app/
-COPY --from=build --chown=app /build/.venv /build/.venv
+COPY --chown=app --from=build /build/.venv /build/.venv
 
-USER 1337
-
-ENTRYPOINT [ "uv" "run" "opentelemetry-instrument", "python3", "-m" , "flask", "--app", "/app/main:app", "run", "--host=0.0.0.0" ]
+ENTRYPOINT [ "uv", "run", "--no-cache", "opentelemetry-instrument", "python3", "-m" , "flask", "--app", "/app/main:app", "run", "--host=0.0.0.0" ]
