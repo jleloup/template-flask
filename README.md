@@ -30,3 +30,6 @@ Then you can use the Makefile created into the rendered application for:
 - setting up your local environment to work on the app: `make install`
 - building the docker container: `make build`
 - locally run this container alongside a database through Docker Compose: `make run`
+
+Warning: this application template uses Mise as a tool management to install all other tools the project may need, such as UV for Python Dependency management.
+You will need Mise to install & work on the project locally.
