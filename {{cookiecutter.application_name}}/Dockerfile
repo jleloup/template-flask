@@ -40,6 +40,7 @@ USER 1337
 # Install app & uv to launch opentelemetry as entrypoint
 ENV PYTHONPATH="/opt/{{cookiecutter.application_name}}:$PYTHONPATH"
 ENV PATH=/build/.venv/bin:$PATH
+ENV PYTHONPATH="/app:$PYTHONPATH"
 
 COPY --chown=app --from=ghcr.io/astral-sh/uv:0.6 /uv /uvx /usr/local/bin/
 COPY --chown=app src/{{cookiecutter.application_name}} /app/
